@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:56:23 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 14:14:19 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:50:25 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int ac, char **av)
 	data.start_y = 500;
 	data.zoom = 1;
 	if (data.size < 20 || data.len < 20)
-		data.zoom = 20;
+		data.zoom = 10;
 	data.sight = 0;
 	data.angle = 0;
 	print_map(&data);

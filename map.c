@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/18 20:38:40 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:59:11 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,36 @@ void	ft_split_int(int i, char *tmp, t_data *data)
 	}
 }
 
+int	file_check(char *file, char *check)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (file[i] != 0)
+	{
+		j = 0;
+		while (file[i + j] == check[j])
+		{
+			if (i == 0 || file[i - 1] == '/')
+				return (0);
+			j++;
+			if (check[j] == 0)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	make_map(char *file, t_data *data)
 {
 	int		fd;
 	char	*tmp;
 	int		i;
 
+	if (file_check(file, ".fdf") == 0)
+		exit(1);
 	fd = open(file, O_RDONLY);
 	data->size = 0;
 	while (get_next_line(fd) != 0)

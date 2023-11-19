@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 15:31:21 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:55:47 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_point
 
 void	make_map(char *file, t_data *data);
 void	ft_split_int(int i, char *tmp, t_data *data);
+int		file_check(char *file, char *check);
 int		check_wordnum(char *s);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	print_map(t_data *data);
