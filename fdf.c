@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:56:23 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 17:04:10 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:57:10 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	if (ac != 2)
-	{
-		write(1, "Input error!\n", 13);
-		exit(1);
-	}
+		error_print(1);
 	make_map(av[1], &data);
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, 1000, 1000, "FDF");
@@ -96,4 +93,5 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, KEYPRESS, 1L << 0, ft_key_press, &data);
 	mlx_loop(data.mlx);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:27:17 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 15:33:43 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:58:31 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	check_start(t_data *data, t_point *start)
 		start->x = data->start_x - (data->len / 2 * data->zoom);
 		start->y = data->start_y + (data->size / 2 * data->zoom);
 	}
-
 }
+
 void	print_line_para(t_data *data, int flag)
 {
 	t_point	tpos[2];
@@ -60,5 +60,3 @@ void	print_line_para(t_data *data, int flag)
 		return ;
 	draw_line(data, tpos, ncolor);
 }
-
-
