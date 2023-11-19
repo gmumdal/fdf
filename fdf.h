@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 15:55:47 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:15:53 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define FDF_H
 
 # include <mlx.h>
+# include <string.h>
 # include <stdio.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <math.h>
 # include "get_next_line.h"

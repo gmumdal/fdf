@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 15:59:11 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:02:26 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,18 @@ int	file_check(char *file, char *check)
 void	make_map(char *file, t_data *data)
 {
 	int		fd;
-	char	*tmp;
 	int		i;
+	char	*tmp;
 
-	if (file_check(file, ".fdf") == 0)
-		exit(1);
 	fd = open(file, O_RDONLY);
 	data->size = 0;
 	while (get_next_line(fd) != 0)
 		(data->size)++;
+	if (file_check(file, ".fdf") == 0 || data->size == 0)
+	{
+		write(1, "Input error!\n", 13);
+		exit(1);
+	}
 	data->imap = (int **)malloc(sizeof(int *) * data->size);
 	data->color = (int **)malloc(sizeof(int *) * data->size);
 	if (data->imap == 0 || data->color == 0)
