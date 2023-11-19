@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 20:55:28 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:26:44 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define SIGHT		1
 # define ESC		53
 # define KEYPRESS	2
+# define BUTTON		17
 
 typedef struct s_data
 {
@@ -82,5 +83,6 @@ void	check_keycode(int keycode, t_data *data);
 void	check_angle(t_data *data, t_point *angles, t_point *start);
 void	print_line_para(t_data *data, int flag);
 void	check_start(t_data *data, t_point *start);
+int		ft_close(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:56:23 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 21:52:52 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:26:02 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ int	ft_key_press(int keycode, t_data *data)
 	return (0);
 }
 
+int	ft_close(t_data *data)
+{
+	mlx_destroy_window(data->mlx, data->win);
+	exit(0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -92,6 +98,7 @@ int	main(int ac, char **av)
 	print_map(&data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, KEYPRESS, 1L << 0, ft_key_press, &data);
+	mlx_hook(data.win, BUTTON, 1L << 2, ft_close, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }
