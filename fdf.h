@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/17 22:06:59 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:31:21 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 # include <math.h>
 # include "get_next_line.h"
 
+# define UP			126
+# define DOWN		125
+# define LEFT		123
+# define RIGHT		124
+# define BIG		35
+# define SMALL		46
+# define TURN_R		15
+# define TURN_L		37
+# define SIGHT		1
+# define ESC		53
+# define KEYPRESS	2
+
 typedef struct s_data
 {
 	void	*img;
@@ -26,13 +38,20 @@ typedef struct s_data
 	int		bpp;
 	int		l_len;
 	int		endian;
-}	t_data;
-
-typedef struct s_vars
-{
 	void	*mlx;
 	void	*win;
-}	t_vars;
+	int		**imap;
+	int		**color;
+	int		size;
+	int		len;
+	int		x;
+	int		y;
+	int		start_x;
+	int		start_y;
+	int		zoom;
+	int		sight;
+	double	angle;
+}	t_data;
 
 typedef struct s_point
 {
@@ -40,24 +59,24 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
-typedef struct s_map
-{
-	int		**imap;
-	int		**color;
-	int		size;
-	int		len;
-	int		pos[2];
-}	t_map;
-
-void	make_map(char *file, t_map *mapinfo);
-void	ft_split_int(int i, char *tmp, t_map *map);
+void	make_map(char *file, t_data *data);
+void	ft_split_int(int i, char *tmp, t_data *data);
 int		check_wordnum(char *s);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	print_map(t_data *img, t_map *map);
-void	print_line(t_data *img, t_map *map, int flag);
-void	draw_line(t_data *img, t_point *tpos, double grad, t_map *map);
+void	print_map(t_data *data);
+void	print_line(t_data *data, int flag);
+void	draw_line(t_data *data, t_point *tpos, int ncolor);
 int		color_check(char **tmp);
 int		hexa_index(char c, char *lower, char *upper);
-double	check_flag(t_point *tpos, int zoom, t_map *map, int flag);
+int		check_flag(t_point *tpos, t_data *data, int flag, t_point angles);
+int		ft_key_press(int keycode, t_data *data);
+int		get_trgb(int trgb, int flag);
+int		create_trgb(int t, int r, int g, int b);
+int		grad_rgb(double ratio, int color, int ncolor);
+void	init_map(t_data *data);
+void	check_keycode(int keycode, t_data *data);
+void	check_angle(t_data *data, t_point *angles, t_point *start);
+void	print_line_para(t_data *data, int flag);
+void	check_start(t_data *data, t_point *start);
 
 #endif

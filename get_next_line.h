@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:21:48 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/09 14:49:03 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:01:12 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 2048
 # endif
 
 # include <stdlib.h>

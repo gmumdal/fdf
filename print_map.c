@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:44:07 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/17 22:05:45 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:27:40 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,73 +20,66 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	print_map(t_data *img, t_map *map)
+void	print_map(t_data *data)
 {
-	map->pos[0] = 0;
-	while (map->pos[0] < map->len)
+	data->x = 0;
+	while (data->x < data->len)
 	{
-		map->pos[1] = 0;
-		while (map->pos[1] < map->size)
+		data->y = 0;
+		while (data->y < data->size)
 		{
-			if (map->pos[0] < map->len - 1)
-				print_line(img, map, 0);
-			if (map->pos[1] < map->size - 1)
-				print_line(img, map, 1);
-			map->pos[1]++;
+			if (data->x < data->len - 1)
+			{
+				if (data->sight == 0)
+					print_line(data, 0);
+				else
+					print_line_para(data, 2);
+			}
+			if (data->y < data->size - 1)
+			{
+				if (data->sight == 0)
+					print_line(data, 1);
+				else
+					print_line_para(data, 3);
+			}
+			data->y++;
 		}
-		map->pos[0]++;
+		data->x++;
 	}
 }
 
-void	print_line(t_data *img, t_map *map, int flag)
+void	print_line(t_data *data, int flag)
 {
 	t_point	tpos[2];
-	double	grad;
-	int		zoom;
+	t_point	angles;
+	t_point	start;
+	int		ncolor;
 
-	zoom = 1;
-	if (map->size < 100 || map->len < 100)
-		zoom = 25;
-	tpos[0].x = 500 + ((map->pos[0] * cos(M_PI / 6)
-				- map->pos[1] * sin(M_PI / 3)) * zoom);
-	tpos[0].y = 500 + ((map->pos[0] * sin(M_PI / 6)
-				+ map->pos[1] * cos(M_PI / 3)) * zoom);
-	grad = check_flag(tpos, zoom, map, flag);
-	tpos[0].y -= 2 * map->imap[map->pos[1]][map->pos[0]];
-	draw_line(img, tpos, grad, map);
+	start.x = data->start_x;
+	start.y = data->start_y;
+	check_angle(data, &angles, &start);
+	tpos[0].x = start.x + ((data->x * cos(angles.x)
+				- data->y * sin(angles.y)) * data->zoom);
+	tpos[0].y = start.y + ((data->x * sin(angles.x)
+				+ data->y * cos(angles.y)) * data->zoom);
+	ncolor = check_flag(tpos, data, flag, angles);
+	tpos[0].y -= data->imap[data->y][data->x] * data->zoom;
+	if (tpos[0].x > 1000 || tpos[0].y > 1000
+		|| tpos[1].x > 1000 || tpos[1].y > 1000
+		|| tpos[0].x < 0 || tpos[0].y < 0
+		|| tpos[1].x < 0 || tpos[1].y < 0)
+		return ;
+	draw_line(data, tpos, ncolor);
 }
 
-double	check_flag(t_point *tpos, int zoom, t_map *map, int flag)
-{
-	double	grad;
-
-	if (flag == 0)
-	{
-		tpos[1].x = tpos[0].x + cos(M_PI / 6) * zoom;
-		tpos[1].y = tpos[0].y + sin(M_PI / 6) * zoom
-			- 2 * map->imap[map->pos[1]][map->pos[0] + 1];
-		grad = map->color[map->pos[1]][map->pos[0] + 1]
-			- map->color[map->pos[1]][map->pos[0]];
-	}
-	else
-	{
-		tpos[1].x = tpos[0].x - sin(M_PI / 3) * zoom;
-		tpos[1].y = tpos[0].y + cos(M_PI / 3) * zoom
-			- 2 * map->imap[map->pos[1] + 1][map->pos[0]];
-		grad = map->color[map->pos[1] + 1][map->pos[0]]
-			- map->color[map->pos[1]][map->pos[0]];
-	}
-	return (grad);
-}
-
-void	draw_line(t_data *img, t_point *tpos, double grad, t_map *map)
+void	draw_line(t_data *data, t_point *tpos, int ncolor)
 {
 	t_point	dpos;
-	double	step;
-	double	color;
-	double	i;
+	int		step;
+	int		i;
+	int		color;
 
-	color = map->color[map->pos[1]][map->pos[0]];
+	color = data->color[data->y][data->x];
 	dpos.x = tpos[1].x - tpos[0].x;
 	dpos.y = tpos[1].y - tpos[0].y;
 	if (fabs(dpos.x) > fabs(dpos.y))
@@ -95,14 +88,13 @@ void	draw_line(t_data *img, t_point *tpos, double grad, t_map *map)
 		step = fabs(dpos.y);
 	dpos.x = dpos.x / step;
 	dpos.y = dpos.y / step;
-	grad = grad / step;
 	i = 0;
 	while (i <= step)
 	{
-		my_mlx_pixel_put(img, round(tpos[0].x), round(tpos[0].y), round(color));
-		tpos[0].x = tpos[0].x + dpos.x;
-		tpos[0].y = tpos[0].y + dpos.y;
-		color = color + grad;
-		i++;
+		my_mlx_pixel_put(data, tpos[0].x + 0.5, tpos[0].y + 0.5,
+			grad_rgb((double)i / step, color, ncolor));
+		tpos[0].x += dpos.x;
+		tpos[0].y += dpos.y;
+		i += 1;
 	}
 }

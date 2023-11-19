@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_util.c                                         :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:58:53 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/17 21:01:45 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 13:52:23 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	color_check(char **tmp)
 	if (**tmp != ',')
 		return (0x00FFFFFF);
 	color = 0;
-	while (**tmp != 'x')
+	while (**tmp != 'x' && **tmp != 'X')
 		(*tmp)++;
 	(*tmp)++;
-	while (**tmp != ' ' && **tmp != 0)
+	while (**tmp != ' ' && **tmp != '\n' && **tmp != 0)
 	{
 		color = color * 16 + hexa_index(**tmp, "abcdef", "ABCDEF");
 		(*tmp)++;

@@ -6,7 +6,7 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/17 20:59:08 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/18 20:38:40 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,51 +33,51 @@ int	check_wordnum(char *s)
 	return (count);
 }
 
-void	ft_split_int(int i, char *tmp, t_map *map)
+void	ft_split_int(int i, char *tmp, t_data *data)
 {
 	int	j;
 
 	if (tmp == 0)
 		return ;
-	map->len = check_wordnum(tmp);
-	map->imap[i] = (int *)malloc(sizeof(int) * map->len);
-	map->color[i] = (int *)malloc(sizeof(int) * map->len);
-	if (map->imap[i] == 0 || map->color[i] == 0)
+	data->len = check_wordnum(tmp);
+	data->imap[i] = (int *)malloc(sizeof(int) * data->len);
+	data->color[i] = (int *)malloc(sizeof(int) * data->len);
+	if (data->imap[i] == 0 || data->color[i] == 0)
 		exit(1);
 	j = 0;
-	while (j < map->len)
+	while (j < data->len)
 	{
-		map->imap[i][j] = 0;
-		while (*tmp == ' ' || *tmp == '\n' || *tmp == 0)
+		data->imap[i][j] = 0;
+		while (*tmp == ' ' || *tmp == '\n')
 			tmp++;
 		while (*tmp != ' ' && *tmp != 0 && *tmp != ',' && *tmp != '\n')
-			map->imap[i][j] = map->imap[i][j] * 10 + *tmp++ - '0';
-		map->color[i][j] = color_check(&tmp);
+			data->imap[i][j] = data->imap[i][j] * 10 + *tmp++ - '0';
+		data->color[i][j] = color_check(&tmp);
 		j++;
 	}
 }
 
-void	make_map(char *file, t_map *map)
+void	make_map(char *file, t_data *data)
 {
 	int		fd;
 	char	*tmp;
 	int		i;
 
 	fd = open(file, O_RDONLY);
-	map->size = 0;
+	data->size = 0;
 	while (get_next_line(fd) != 0)
-		(map->size)++;
-	map->imap = (int **)malloc(sizeof(int *) * map->size);
-	map->color = (int **)malloc(sizeof(int *) * map->size);
-	if (map->imap == 0 || map->color == 0)
+		(data->size)++;
+	data->imap = (int **)malloc(sizeof(int *) * data->size);
+	data->color = (int **)malloc(sizeof(int *) * data->size);
+	if (data->imap == 0 || data->color == 0)
 		exit(1);
 	close(fd);
 	fd = open(file, O_RDONLY);
 	i = 0;
-	while (i < map->size)
+	while (i < data->size)
 	{
 		tmp = get_next_line(fd);
-		ft_split_int(i, tmp, map);
+		ft_split_int(i, tmp, data);
 		i++;
 	}
 }

@@ -2,8 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 MLX = -lmlx -framework OpenGL -framework Appkit 
 NAME = fdf
-SRCS = get_next_line.c get_next_line_utils.c map.c print_map.c fdf.c map_util.c
-
+SRCS = get_next_line.c get_next_line_utils.c map.c map_utils.c print_map.c print_map_utils.c fdf.c parallel.c
 all : $(NAME)
 
 $(NAME) : $(SRCS)
