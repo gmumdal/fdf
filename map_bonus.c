@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 21:52:45 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:22:56 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ int	file_check(char *file, char *check)
 		j = 0;
 		while (file[i + j] == check[j])
 		{
-			if (i == 0 || file[i - 1] == '/')
-				return (0);
 			j++;
 			if (check[j] == 0)
+			{
+				if (i == 0 || file[i - 1] == '/')
+					return (0);
 				return (1);
+			}
 		}
 		i++;
 	}

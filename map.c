@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 21:45:27 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:21:58 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ int	file_check(char *file, char *check)
 		j = 0;
 		while (file[i + j] == check[j])
 		{
-			if (i == 0 || file[i - 1] == '/')
-				return (0);
 			j++;
 			if (check[j] == 0)
+			{
+				if (i == 0 || file[i - 1] == '/')
+					return (0);
 				return (1);
+			}
 		}
 		i++;
 	}
@@ -98,13 +100,13 @@ void	make_map(char *file, t_data *data)
 	data->size = 0;
 	while (get_next_line(fd) != 0)
 		(data->size)++;
+	close(fd);
 	if (file_check(file, ".fdf") == 0 || data->size == 0)
 		error_print(1);
 	data->imap = (int **)malloc(sizeof(int *) * data->size);
 	data->color = (int **)malloc(sizeof(int *) * data->size);
 	if (data->imap == 0 || data->color == 0)
 		error_print(2);
-	close(fd);
 	fd = open(file, O_RDONLY);
 	i = 0;
 	while (i < data->size)

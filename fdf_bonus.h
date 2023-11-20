@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 22:26:48 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:28:20 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ typedef struct s_data
 	int		bpp;
 	int		l_len;
 	int		endian;
+
 	void	*mlx;
 	void	*win;
+
 	int		**imap;
 	int		**color;
 	int		size;
