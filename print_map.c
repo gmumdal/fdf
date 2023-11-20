@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:44:07 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/20 15:22:00 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:56:46 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_line(t_data *data, int flag)
 	tpos[0].y = start.y + ((data->x * sin(angles.x)
 				+ data->y * cos(angles.y)) * data->zoom);
 	ncolor = check_flag(tpos, data, flag, angles);
-	tpos[0].y -= data->imap[data->y][data->x] * data->zoom;
+	tpos[0].y -= (data->imap[data->y][data->x] * data->height) * data->zoom;
 	if (tpos[0].x > 1000 || tpos[0].y > 1000
 		|| tpos[1].x > 1000 || tpos[1].y > 1000
 		|| tpos[0].x < 0 || tpos[0].y < 0

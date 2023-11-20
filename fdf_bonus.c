@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:56:23 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 22:26:02 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:00:18 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ void	check_keycode(int keycode, t_data *data)
 		data->zoom += 1;
 	if (keycode == SMALL && data->zoom > 1)
 		data->zoom -= 1;
-	if (keycode == TURN_R && data->angle < 3)
-		data->angle += 1;
-	else if (keycode == TURN_R && data->angle == 3)
-		data->angle = 0;
-	if (keycode == TURN_L && data->angle != 0)
-		data->angle -= 1;
-	else if (keycode == TURN_L && data->angle == 0)
-		data->angle = 3;
+	if (keycode == TURN_R)
+		data->angle = (data->angle + 1) % 4;
+	if (keycode == TURN_L)
+		data->angle = (data->angle + 3) % 4;
 	if (keycode == SIGHT)
 		data->sight = 1 - data->sight;
+	if (keycode == HEIGHT)
+		data->height += 1;
+	if (keycode == SHORT)
+		data->height -= 1;
 }
 
 int	ft_key_press(int keycode, t_data *data)
@@ -95,6 +95,7 @@ int	main(int ac, char **av)
 		data.zoom = 10;
 	data.sight = 0;
 	data.angle = 0;
+	data.height = 1;
 	print_map(&data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, KEYPRESS, 1L << 0, ft_key_press, &data);

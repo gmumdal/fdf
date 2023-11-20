@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:30:58 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 21:52:36 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:58:51 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	check_flag(t_point *tpos, t_data *data, int flag, t_point angles)
 	{
 		tpos[1].x = tpos[0].x + cos(angles.x) * data->zoom;
 		tpos[1].y = tpos[0].y + sin(angles.x) * data->zoom
-			- data->imap[data->y][data->x + 1] * data->zoom;
+			- data->imap[data->y][data->x + 1] * data->zoom * data->height;
 		if (flag == 2)
 			tpos[1].y = tpos[0].y + sin(angles.x) * data->zoom;
 		ncolor = data->color[data->y][data->x + 1];
@@ -90,7 +90,7 @@ int	check_flag(t_point *tpos, t_data *data, int flag, t_point angles)
 	{
 		tpos[1].x = tpos[0].x - sin(angles.y) * data->zoom;
 		tpos[1].y = tpos[0].y + cos(angles.y) * data->zoom
-			- data->imap[data->y + 1][data->x] * data->zoom;
+			- data->imap[data->y + 1][data->x] * data->zoom * data->height;
 		if (flag == 3)
 			tpos[1].y = tpos[0].y + cos(angles.y) * data->zoom;
 		ncolor = data->color[data->y + 1][data->x];

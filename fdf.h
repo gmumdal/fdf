@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 22:28:33 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:01:02 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define ESC		53
 # define KEYPRESS	2
 # define BUTTON		17
+# define HEIGHT		4
+# define SHORT		2
 
 typedef struct s_data
 {
@@ -55,7 +57,8 @@ typedef struct s_data
 	int		start_y;
 	int		zoom;
 	int		sight;
-	double	angle;
+	int		angle;
+	int		height;
 }	t_data;
 
 typedef struct s_point
