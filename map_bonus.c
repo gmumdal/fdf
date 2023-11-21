@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/20 17:22:56 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:46:37 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,21 @@ int	file_check(char *file, char *check)
 	return (0);
 }
 
-void	error_print(int flag)
+int	check_size(int fd)
 {
-	if (flag == 1)
-		write(1, "Input error!\n", 13);
-	else if (flag == 2)
-		write(1, "Malloc error!\n", 14);
-	exit(0);
+	char	*tmp;
+	int		size;
+
+	size = 0;
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (tmp == 0)
+			break ;
+		free(tmp);
+		size++;
+	}
+	return (size);
 }
 
 void	make_map(char *file, t_data *data)
@@ -97,9 +105,7 @@ void	make_map(char *file, t_data *data)
 	char	*tmp;
 
 	fd = open(file, O_RDONLY);
-	data->size = 0;
-	while (get_next_line(fd) != 0)
-		(data->size)++;
+	data->size = check_size(fd);
 	if (file_check(file, ".fdf") == 0 || data->size == 0)
 		error_print(1);
 	data->imap = (int **)malloc(sizeof(int *) * data->size);
@@ -113,6 +119,9 @@ void	make_map(char *file, t_data *data)
 	{
 		tmp = get_next_line(fd);
 		ft_split_int(i, tmp, data);
+		free(tmp);
 		i++;
 	}
+	if (data->len == 1 && data->size == 1)
+		error_print(1);
 }

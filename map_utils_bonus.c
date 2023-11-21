@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:58:53 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 21:51:50 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:01:09 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ int	hexa_index(char c, char *lower, char *upper)
 		i++;
 	}
 	return (c - '0');
+}
+
+void	error_print(int flag)
+{
+	if (flag == 1)
+		write(1, "Input error!\n", 13);
+	else if (flag == 2)
+		write(1, "Malloc error!\n", 14);
+	exit(0);
 }
 
 int	color_check(char **tmp)

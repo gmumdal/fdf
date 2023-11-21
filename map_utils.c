@@ -6,11 +6,20 @@
 /*   By: hyeongsh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:58:53 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/19 13:52:23 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:57:59 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	error_print(int flag)
+{
+	if (flag == 1)
+		write(1, "Input error!\n", 13);
+	else if (flag == 2)
+		write(1, "Malloc error!\n", 14);
+	exit(0);
+}
 
 char	*choose_check(char *tmp, char *lower, char *upper)
 {
