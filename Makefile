@@ -3,24 +3,27 @@ CFLAGS = -Wall -Wextra -Werror
 MLX = -lmlx -framework OpenGL -framework Appkit 
 NAME = fdf
 NAME_B = fdf_bonus
-SRCS = get_next_line.c get_next_line_utils.c map.c \
-		map_utils.c print_map.c print_map_utils.c \
-		fdf.c parallel.c
-SRCS_B = get_next_line_bonus.c get_next_line_utils_bonus.c \
-		map_bonus.c map_utils_bonus.c print_map_bonus.c \
+SRCS = 	map.c map_utils.c print_map.c \
+		print_map_utils.c fdf.c parallel.c
+SRCS_B = map_bonus.c map_utils_bonus.c print_map_bonus.c \
 		print_map_utils_bonus.c fdf_bonus.c parallel_bonus.c
+LIBFT_DIR = libft
+LIBFT = -Ilibft -Llibft -lft
 
 all : $(NAME)
 
 $(NAME) : $(SRCS)
-	$(CC) $(CFLAGS) $(MLX) $(SRCS) -o $(NAME)
+	make -sC $(LIBFT_DIR) all
+	$(CC) $(CFLAGS) $(MLX) $(SRCS) -o $(NAME) $(LIBFT)
 
 bonus : $(NAME_B)
 
 $(NAME_B) : $(SRCS_B)
-	$(CC) $(CFLAGS) $(MLX) $(SRCS_B) -o $(NAME_B)
+	make -sC $(LIBFT_DIR) all
+	$(CC) $(CFLAGS) $(MLX) $(SRCS_B) -o $(NAME_B) $(LIBFT)
 
 clean :
+	make -sC $(LIBFT_DIR) fclean
 
 fclean : clean
 	rm -rf $(NAME)
