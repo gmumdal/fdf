@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:23:39 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/21 13:58:44 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:46:55 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include <mlx.h>
 # include <string.h>
 # include <stdio.h>
-# include <errno.h>
 # include <fcntl.h>
 # include <math.h>
-# include "get_next_line.h"
+# include "libft.h"
 
 # define UP			126
 # define DOWN		125
@@ -72,7 +71,7 @@ void	ft_split_int(int i, char *tmp, t_data *data);
 int		file_check(char *file, char *check);
 int		check_size(int fd);
 void	error_print(int flag);
-int		check_wordnum(char *s);
+int		check_wordnum(char *s, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	print_map(t_data *data);
 void	print_line(t_data *data, int flag);

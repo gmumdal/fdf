@@ -6,13 +6,13 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:29:19 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/11/21 14:46:37 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:56:24 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_bonus.h"
 
-int	check_wordnum(char *s)
+int	check_wordnum(char *s, t_data *data)
 {
 	int	flag;
 	int	count;
@@ -30,6 +30,8 @@ int	check_wordnum(char *s)
 			flag = 1;
 		s++;
 	}
+	if (data->len != 0 && data->len != count)
+		error_print(1);
 	return (count);
 }
 
@@ -39,7 +41,7 @@ void	ft_split_int(int i, char *tmp, t_data *data)
 
 	if (tmp == 0)
 		return ;
-	data->len = check_wordnum(tmp);
+	data->len = check_wordnum(tmp, data);
 	data->imap[i] = (int *)malloc(sizeof(int) * data->len);
 	data->color[i] = (int *)malloc(sizeof(int) * data->len);
 	if (data->imap[i] == 0 || data->color[i] == 0)
@@ -115,6 +117,7 @@ void	make_map(char *file, t_data *data)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	i = 0;
+	data->len = 0;
 	while (i < data->size)
 	{
 		tmp = get_next_line(fd);
